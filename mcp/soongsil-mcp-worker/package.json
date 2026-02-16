@@ -1,0 +1,21 @@
+{
+  "name": "soongsil-mcp-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync-assets": "node ./scripts/sync-assets.mjs",
+    "dev": "npm run sync-assets && wrangler dev",
+    "deploy": "npm run sync-assets && wrangler deploy",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "latest",
+    "typescript": "latest",
+    "wrangler": "latest"
+  }
+}

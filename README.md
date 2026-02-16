@@ -8,14 +8,17 @@
 - `knowledge/normalized-md/`: 질의응답용 정규화 코퍼스
 - `knowledge/raw-md/`: 원문 fallback
 - `mcp/soongsil-mcp/`: MCP 서버 구현 및 참조 규칙
+- `mcp/soongsil-mcp-worker/`: Cloudflare Workers 원격 MCP 배포 구성
 
 ## Quick Start
 
 ```bash
-cd /Users/joonwoo/Documents/GitHub/Soongsil/mcp/soongsil-mcp
+# repository root에서 실행
+cd /Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -e .
+python -m pip install --upgrade pip
+python -m pip install -e .
 python server.py
 ```
 
@@ -33,13 +36,27 @@ pip install fastmcp
 {
   "mcpServers": {
     "soongsil-mcp": {
-      "command": "/Users/joonwoo/Documents/GitHub/Soongsil/mcp/soongsil-mcp/.venv/bin/python",
+      "command": "/Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp/.venv/bin/python",
       "args": [
-        "/Users/joonwoo/Documents/GitHub/Soongsil/mcp/soongsil-mcp/server.py"
+        "/Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp/server.py"
       ]
     }
   }
 }
+```
+
+## Cloudflare Workers (원격 MCP)
+
+Workers 배포를 사용할 경우 아래 문서를 따르세요.
+
+- `/Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp-worker/README.md`
+
+핵심 명령:
+
+```bash
+cd /Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp-worker
+npm install
+npm run deploy
 ```
 
 ## Exposed MCP Tools
@@ -64,10 +81,24 @@ pip install fastmcp
 raw/정규화 업데이트 시:
 
 ```bash
-python3 /Users/joonwoo/Documents/GitHub/Soongsil/mcp/soongsil-mcp/scripts/convert_pdfs_to_md.py
+python3 /Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp/scripts/convert_pdfs_to_md.py
 ```
 
 추가 운영 문서:
 
-- `/Users/joonwoo/Documents/GitHub/Soongsil/mcp/soongsil-mcp/README.md`
-- `/Users/joonwoo/Documents/GitHub/Soongsil/mcp/soongsil-mcp/references/md-corpus.md`
+- `/Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp/README.md`
+- `/Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp/references/md-corpus.md`
+
+## Troubleshooting
+
+`bad interpreter` 에러(예: `.venv/bin/pip: .../Soongsil/.venv/bin/python...`)가 나면
+예전 경로에서 생성된 가상환경이 남아있는 상태입니다.
+
+```bash
+deactivate 2>/dev/null || true
+cd /Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp
+rm -rf .venv
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+```

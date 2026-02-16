@@ -17,10 +17,11 @@
 1. 의존성 설치
 
 ```bash
-cd /Users/joonwoo/Documents/GitHub/Soongsil/mcp/soongsil-mcp
+cd /Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -e .
+python -m pip install --upgrade pip
+python -m pip install -e .
 ```
 
 `mcp.server.fastmcp` import 오류가 나는 환경에서는 아래를 추가 설치:
@@ -32,7 +33,7 @@ pip install fastmcp
 2. 서버 실행
 
 ```bash
-python /Users/joonwoo/Documents/GitHub/Soongsil/mcp/soongsil-mcp/server.py
+python /Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp/server.py
 ```
 
 ## Claude Desktop 설정 예시
@@ -43,9 +44,9 @@ Claude Desktop `claude_desktop_config.json`의 `mcpServers`에 추가:
 {
   "mcpServers": {
     "soongsil-mcp": {
-      "command": "/Users/joonwoo/Documents/GitHub/Soongsil/mcp/soongsil-mcp/.venv/bin/python",
+      "command": "/Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp/.venv/bin/python",
       "args": [
-        "/Users/joonwoo/Documents/GitHub/Soongsil/mcp/soongsil-mcp/server.py"
+        "/Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp/server.py"
       ]
     }
   }
@@ -54,13 +55,27 @@ Claude Desktop `claude_desktop_config.json`의 `mcpServers`에 추가:
 
 ## 데이터 소스
 
-- PDFs: `/Users/joonwoo/Documents/GitHub/Soongsil/docs`
-- 정규화 MD: `/Users/joonwoo/Documents/GitHub/Soongsil/knowledge/normalized-md`
-- 원문 fallback: `/Users/joonwoo/Documents/GitHub/Soongsil/knowledge/raw-md/학칙.raw.md`
-- MCP 참조 규칙: `/Users/joonwoo/Documents/GitHub/Soongsil/mcp/soongsil-mcp/references`
+- PDFs: `/Users/joonwoo/Documents/GitHub/Soongsil-MCP/docs`
+- 정규화 MD: `/Users/joonwoo/Documents/GitHub/Soongsil-MCP/knowledge/normalized-md`
+- 원문 fallback: `/Users/joonwoo/Documents/GitHub/Soongsil-MCP/knowledge/raw-md/학칙.raw.md`
+- MCP 참조 규칙: `/Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp/references`
 
 ## 운영 규칙
 
 - 기본 탐색 순서: `normalized-md -> references -> raw -> PDF`
 - 최종 답변은 반드시 `(문서명.pdf, p.N)` 형식 인용
 - 장학 정량 기준 미제공 시 `판정 불가(근거 문서 없음)` 처리
+
+## Troubleshooting
+
+`bad interpreter` 에러(예: `.venv/bin/pip: .../Soongsil/.venv/bin/python...`)가 나면
+이전 위치에서 생성된 가상환경 경로가 남아있는 상태입니다.
+
+```bash
+deactivate 2>/dev/null || true
+cd /Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp
+rm -rf .venv
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+```
