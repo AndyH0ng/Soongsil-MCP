@@ -2,13 +2,11 @@
 
 숭실대학교 학칙·학사 문서를 근거로 질의응답, 졸업요건 판정, 장학 기준 확인을 지원하는 MCP 서버입니다.
 
-현재 구조는 **MCP 단일 운영**이며, 기존 Skill 기반 구성은 제거되었습니다.
-
 ## Repository Layout
 
 - `docs/`: 원본 근거 PDF
 - `knowledge/normalized-md/`: 질의응답용 정규화 코퍼스
-- `knowledge/raw-md/`: 원문 fallback (`학칙.raw.md` 유지)
+- `knowledge/raw-md/`: 원문 fallback
 - `mcp/soongsil-mcp/`: MCP 서버 구현 및 참조 규칙
 
 ## Quick Start
