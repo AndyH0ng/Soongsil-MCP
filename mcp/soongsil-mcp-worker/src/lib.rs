@@ -526,14 +526,17 @@ fn number_to_f64(value: &Value) -> Option<f64> {
     value.as_f64()
 }
 
-fn required_string(args: &Map<String, Value>, key: &str) -> Result<String, String> {
+fn required_string(
+    args: &Map<String, Value>,
+    key: &str,
+) -> std::result::Result<String, String> {
     args.get(key)
         .and_then(Value::as_str)
         .map(str::to_string)
         .ok_or_else(|| format!("'{key}' is required and must be a string"))
 }
 
-fn required_i64(args: &Map<String, Value>, key: &str) -> Result<i64, String> {
+fn required_i64(args: &Map<String, Value>, key: &str) -> std::result::Result<i64, String> {
     args.get(key)
         .and_then(number_to_i64)
         .ok_or_else(|| format!("'{key}' is required and must be an integer"))
@@ -575,7 +578,10 @@ fn tool_error_content(message: &str) -> Value {
     })
 }
 
-fn call_tool(name: &str, args: &Map<String, Value>) -> Result<Value, String> {
+fn call_tool(
+    name: &str,
+    args: &Map<String, Value>,
+) -> std::result::Result<Value, String> {
     match name {
         "ssu_classify_request" => {
             let question = required_string(args, "question")?;
@@ -1034,7 +1040,7 @@ fn json_response(value: &Value) -> Result<Response> {
     Response::from_json(value)
 }
 
-async fn handle_mcp_request(req: Request) -> Result<Response> {
+async fn handle_mcp_request(mut req: Request) -> Result<Response> {
     let body_text = req.text().await?;
     let parsed: Value = match serde_json::from_str(&body_text) {
         Ok(value) => value,
