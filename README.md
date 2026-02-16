@@ -59,6 +59,10 @@ npm install
 npm run deploy
 ```
 
+자동 배포 워크플로우:
+
+- `/Users/joonwoo/Documents/GitHub/Soongsil-MCP/.github/workflows/deploy-worker.yml`
+
 ## Exposed MCP Tools
 
 - `ssu_classify_request`

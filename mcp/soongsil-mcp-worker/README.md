@@ -51,6 +51,24 @@ npm run deploy
 }
 ```
 
+## 5) GitHub Actions 자동 배포
+
+이미 포함된 워크플로우:
+
+- `/Users/joonwoo/Documents/GitHub/Soongsil-MCP/.github/workflows/deploy-worker.yml`
+
+동작:
+
+- `main` 브랜치 push 시 자동 배포
+- `workflow_dispatch` 수동 실행 지원
+
+필수 GitHub Repository Secrets:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+
+Cloudflare API Token에는 최소 `Workers Scripts:Edit` 권한을 포함하세요.
+
 ## 제공 도구
 
 - `ssu_classify_request`
