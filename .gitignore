@@ -28,6 +28,7 @@ pip-wheel-metadata/
 node_modules/
 mcp/soongsil-mcp-worker/.wrangler/
 mcp/soongsil-mcp-worker/public/
+mcp/soongsil-mcp-worker/target/
 
 # OS files
 .DS_Store

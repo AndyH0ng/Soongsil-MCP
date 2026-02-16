@@ -8,7 +8,7 @@
 - `knowledge/normalized-md/`: 질의응답용 정규화 코퍼스
 - `knowledge/raw-md/`: 원문 fallback
 - `mcp/soongsil-mcp/`: MCP 서버 구현 및 참조 규칙
-- `mcp/soongsil-mcp-worker/`: Cloudflare Workers 원격 MCP 배포 구성
+- `mcp/soongsil-mcp-worker/`: Rust 기반 Cloudflare Workers 원격 MCP 배포 구성
 
 ## Quick Start
 
@@ -55,6 +55,7 @@ Workers 배포를 사용할 경우 아래 문서를 따르세요.
 
 ```bash
 cd /Users/joonwoo/Documents/GitHub/Soongsil-MCP/mcp/soongsil-mcp-worker
+rustup target add wasm32-unknown-unknown
 npm install
 npm run deploy
 ```
