@@ -1,0 +1,14 @@
+[project]
+name = "soongsil-mcp"
+version = "0.1.0"
+description = "Evidence-based MCP server for Soongsil academic Q&A, graduation checks, and scholarship threshold checks"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "mcp>=1.0.0",
+  "fastmcp>=0.1.0",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

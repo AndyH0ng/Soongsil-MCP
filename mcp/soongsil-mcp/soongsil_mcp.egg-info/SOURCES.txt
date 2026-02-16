@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+soongsil_mcp.egg-info/PKG-INFO
+soongsil_mcp.egg-info/SOURCES.txt
+soongsil_mcp.egg-info/dependency_links.txt
+soongsil_mcp.egg-info/requires.txt
+soongsil_mcp.egg-info/top_level.txt
